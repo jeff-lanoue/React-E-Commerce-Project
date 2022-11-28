@@ -8,16 +8,25 @@ import styled from "styled-components";
 import CartButtons from "./CartButtons";
 import { useUserContext } from "../context/user_context";
 
-// CONTINUE HERE
-// https://www.udemy.com/course/react-tutorial-and-projects-course/learn/lecture/23493550#content
 const Sidebar = () => {
-    const isOpen = false;
+    // (open side bar step 8, destructure context variables / functions )
+    const { isSidebarOpen, closeSidebar } = useProductsContext();
+
     return (
         <SidebarContainer>
-            <aside className={`${isOpen ? "sidebar show-sidebar" : "sidebar"}`}>
+            <aside
+                className={`${
+                    isSidebarOpen ? "sidebar show-sidebar" : "sidebar"
+                }`}
+            >
                 <div className="sidebar-header">
                     <img src={logo} className="logo" alt="comfy sloth" />
-                    <button type="button" className="close-btn">
+                    {/*(open side bar step 9 add onClick to buttons and links. :: Search for openSidebar )*/}
+                    <button
+                        type="button"
+                        className="close-btn"
+                        onClick={() => closeSidebar()}
+                    >
                         <FaTimes />
                     </button>
                 </div>
@@ -25,12 +34,16 @@ const Sidebar = () => {
                     {links.map(({ id, text, url }) => {
                         return (
                             <li key={id}>
-                                <Link to={url}>{text}</Link>
+                                <Link to={url} onClick={() => closeSidebar()}>
+                                    {text}
+                                </Link>
                             </li>
                         );
                     })}
                     <li>
-                        <Link to="/chekout">chekcout</Link>
+                        <Link to="/checkout" onClick={() => closeSidebar()}>
+                            checkout
+                        </Link>
                     </li>
                 </ul>
                 <CartButtons />
