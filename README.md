@@ -1,1 +1,6 @@
 ## Notes
+
+...
+Use Formspree to collect emails
+https://formspree.io/
+...
