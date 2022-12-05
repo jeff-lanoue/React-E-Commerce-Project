@@ -14,9 +14,6 @@ import {
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
-// reume here jlanoue
-// https://www.udemy.com/course/react-tutorial-and-projects-course/learn/lecture/23511042#overview
-
 const SingleProductPage = () => {
     const { id } = useParams();
     const history = useHistory();
@@ -45,7 +42,7 @@ const SingleProductPage = () => {
     if (error) {
         return <Error />;
     }
-    console.log(product);
+
     const {
         name,
         price,
@@ -66,10 +63,10 @@ const SingleProductPage = () => {
                     back to products
                 </Link>
                 <div className="product-center">
-                    <ProductImages />
+                    <ProductImages images={images} />
                     <section className="content">
                         <h2>{name}</h2>
-                        <Stars />
+                        <Stars stars={stars} reviews={reviews} />
                         <h5 className="price">{formatPrice(price)}</h5>
                         <p className="description">{description}</p>
                         <p className="info">
@@ -85,7 +82,7 @@ const SingleProductPage = () => {
                             {company}
                         </p>
                         <hr />
-                        {stock > 0 && <AddToCart />}
+                        {stock > 0 && <AddToCart product={product} />}
                     </section>
                 </div>
             </div>

@@ -14,6 +14,9 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
     // wrap app with ProducsProvider to pass down context (open side bar step 1)
     <ProductsProvider>
-        <App />
+        {/* we want to get data from our ProductsProvider inside of the FilterProvider so we need to wrap FilterProvider with ProductsProvider */}
+        <FilterProvider>
+            <App />
+        </FilterProvider>
     </ProductsProvider>
 );
