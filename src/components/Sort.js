@@ -7,19 +7,28 @@ import styled from "styled-components";
 // https://www.udemy.com/course/react-tutorial-and-projects-course/learn/lecture/23563000#overview
 
 const Sort = () => {
-    const { filtered_products: products, grid_view } = useFilterContext();
+    const {
+        filtered_products: products,
+        grid_view,
+        setGridView,
+        setListView,
+        sort,
+        updateSort,
+    } = useFilterContext();
     return (
         <Wrapper>
             <div className="btn-container">
                 <button
                     type="button"
                     className={`${grid_view ? "active" : null}`}
+                    onClick={setGridView}
                 >
                     <BsFillGridFill />
                 </button>
                 <button
                     type="button"
                     className={`${!grid_view ? "active" : null}`}
+                    onClick={setListView}
                 >
                     <BsList />
                 </button>
@@ -28,11 +37,17 @@ const Sort = () => {
             <hr />
             <form>
                 <label htmlFor="sort">sort by</label>
-                <select name="sort" id="sort" className="sort-input">
+                <select
+                    name="sort"
+                    id="sort"
+                    className="sort-input"
+                    value={sort}
+                    onChange={updateSort}
+                >
                     <option value="price-lowest">price (lowest)</option>
                     <option value="price-highest">price (highest)</option>
-                    <option value="price-a">price (A - Z)</option>
-                    <option value="price-z">price (Z - A)</option>
+                    <option value="name-a">price (A - Z)</option>
+                    <option value="name-z">price (Z - A)</option>
                 </select>
             </form>
         </Wrapper>
