@@ -15,10 +15,14 @@ const filter_reducer = (state, action) => {
         We are copying the value so we don't point to the same memory location
         */
     if (action.type === LOAD_PRODUCTS) {
+        let maxPrice = action.payload.map((p) => p.price);
+        maxPrice = Math.max(...maxPrice);
+
         return {
             ...state,
             all_products: [...action.payload],
             filtered_products: [...action.payload],
+            filters: { ...state.filters, max_price: maxPrice, price: maxPrice },
         };
     }
 
@@ -41,7 +45,7 @@ const filter_reducer = (state, action) => {
     if (action.type === SORT_PRODUCTS) {
         const { sort, filtered_products } = state;
         let tempProducts = [...filtered_products];
-        console.log(tempProducts);
+
         if (sort === "price-lowest") {
             tempProducts = tempProducts.sort((a, b) => a.price - b.price);
         }
@@ -60,6 +64,34 @@ const filter_reducer = (state, action) => {
         }
 
         return { ...state, filtered_products: tempProducts };
+    }
+    if (action.type === UPDATE_FILTERS) {
+        // destructure from payload
+        const { name, value } = action.payload;
+        // using spread we preserver other values in the state, we dynamically access the prop via [name].
+        return { ...state, filters: { ...state.filters, [name]: value } };
+    }
+    if (action.type === FILTER_PRODUCTS) {
+        console.log(state.filters.text);
+        console.log("FILTERING...");
+        return { ...state };
+        // jlanoue
+        // https://www.udemy.com/course/react-tutorial-and-projects-course/learn/lecture/23657404#overview
+    }
+
+    if (action.type === CLEAR_FILTERS) {
+        return {
+            ...state,
+            filters: {
+                ...state.filters, // override the values below with values from state
+                text: "",
+                company: "all",
+                category: "all",
+                color: "all",
+                price: state.filters.max_price,
+                shipping: false,
+            },
+        };
     }
     throw new Error(`No Matching "${action.type}" - action type`);
 };

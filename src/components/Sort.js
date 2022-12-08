@@ -3,9 +3,6 @@ import { useFilterContext } from "../context/filter_context";
 import { BsFillGridFill, BsList } from "react-icons/bs";
 import styled from "styled-components";
 
-// RESUME jlanoue
-// https://www.udemy.com/course/react-tutorial-and-projects-course/learn/lecture/23563000#overview
-
 const Sort = () => {
     const {
         filtered_products: products,
