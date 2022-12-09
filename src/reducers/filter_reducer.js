@@ -72,9 +72,45 @@ const filter_reducer = (state, action) => {
         return { ...state, filters: { ...state.filters, [name]: value } };
     }
     if (action.type === FILTER_PRODUCTS) {
-        console.log(state.filters.text);
-        console.log("FILTERING...");
-        return { ...state };
+        const { all_products } = state;
+        const { text, company, category, color, price, shipping } =
+            state.filters;
+        let tempProducts = [...all_products]; // get freash set of data form the state ( unfiltered )
+
+        // text
+        if (text) {
+            tempProducts = tempProducts.filter((product) => {
+                return product.name.toLowerCase().startsWith(text);
+            });
+        }
+        // company
+        if (company !== "all") {
+            tempProducts = tempProducts.filter(
+                (product) => product.company === company
+            );
+        }
+        // category
+        if (category !== "all") {
+            tempProducts = tempProducts.filter(
+                (product) => product.category === category
+            );
+        }
+        // color
+        if (color !== "all") {
+            tempProducts = tempProducts.filter((product) => {
+                return product.colors.find((c) => c === color);
+            });
+        }
+        // price
+        tempProducts = tempProducts.filter((product) => product.price <= price);
+        // shipping
+        if (shipping) {
+            tempProducts = tempProducts.filter(
+                (product) => product.shipping === true
+            );
+        }
+        // no filtering so return everything
+        return { ...state, filtered_products: tempProducts };
         // jlanoue
         // https://www.udemy.com/course/react-tutorial-and-projects-course/learn/lecture/23657404#overview
     }
