@@ -16,7 +16,9 @@ root.render(
     <ProductsProvider>
         {/* we want to get data from our ProductsProvider inside of the FilterProvider so we need to wrap FilterProvider with ProductsProvider */}
         <FilterProvider>
-            <App />
+            <CartProvider>
+                <App />
+            </CartProvider>
         </FilterProvider>
     </ProductsProvider>
 );

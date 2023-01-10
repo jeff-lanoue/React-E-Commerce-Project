@@ -111,8 +111,6 @@ const filter_reducer = (state, action) => {
         }
         // no filtering so return everything
         return { ...state, filtered_products: tempProducts };
-        // jlanoue
-        // https://www.udemy.com/course/react-tutorial-and-projects-course/learn/lecture/23657404#overview
     }
 
     if (action.type === CLEAR_FILTERS) {
